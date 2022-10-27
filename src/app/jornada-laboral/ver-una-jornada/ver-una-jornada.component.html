@@ -1,0 +1,53 @@
+<div class="container d-flex flex-column justify-content-center">
+    <div class="container pt-2">
+        <div class="row justify-content-sm-center pt-5">
+            <div class="col-sm-6 shadow round pb-3 colorFormulario rounded-5">
+                <h2 class="d-flex justify-content-sm-center text-white">Buscar una joranda por ID</h2>
+
+                <form [formGroup]="formularioBuscarJornada" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <label class="col-form-label text-white">ID de la jornada</label>
+                        <input type="number" formControlName="id" class="form-control" placeholder="Ejemplo: 6">
+                        <!-- Mensaje de error - campo obligatorio -->
+                        <div *ngIf="formularioBuscarJornada.get('id')?.touched && formularioBuscarJornada.get('id')?.errors?.['required']"
+                            class="alert alert-danger">
+                            Este campo es obligatorio
+                        </div>
+                    </div>
+                    <br>
+                    <button type="submit" [disabled]="formularioBuscarJornada.invalid" class="btn btn-success">Buscar
+                        empleado</button>
+                </form>
+                <br>
+                <div *ngIf="error" class="alert alert-danger">{{mensajeError}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-5" *ngIf="jornadaEncontrada">
+        <h2>Jornada encontrada</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Hora comienzo</th>
+                    <th scope="col">Hora finalizacion</th>
+                    <th scope="col">Horas trabajadas</th>
+                    <th scope="col">Tipo de jornada laboral</th>
+                    <th scope="col">Nombre del empleado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">{{jornadaLaboral.id}}</th>
+                    <td>{{jornadaLaboral.fecha | date: 'dd/MM/yyyy'}}</td>
+                    <td>{{jornadaLaboral.horaComienzo}}</td>
+                    <td>{{jornadaLaboral.horaFinalizacion}}</td>
+                    <td>{{jornadaLaboral.horasTrabajadas}}</td>
+                    <td>{{jornadaLaboral.tipoDeJornada.nombre}}</td>
+                    <td>{{jornadaLaboral.empleado.nombre + ' ' + jornadaLaboral.empleado.apellido}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

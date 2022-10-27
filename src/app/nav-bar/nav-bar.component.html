@@ -1,0 +1,30 @@
+<nav class="colorBarra">
+    <ul class="nav justify-content-sm-center aling-item-center p-2">
+        <li class="nav-item me-5">
+            <div class="dropdown">
+                <button class="btn dropdown-toggle text-white" type="button" id="dropdownMenu2"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    Empleado
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                    <li><button class="dropdown-item" type="button" [routerLink]="'/empleado/crear'">Crear empleado</button></li>
+                    <li><button class="dropdown-item" type="button" [routerLink]="'/empleado/buscar'">Buscar empleado</button></li>
+                </ul>
+            </div>
+        </li>
+
+        <li class="nav-item">
+            <div class="dropdown">
+                <button class="btn dropdown-toggle text-white" type="button" id="dropdownMenu2"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    Jornada de trabajo
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                    <li><button class="dropdown-item" type="button" [routerLink]="'/jornada-laboral/ver'">Buscar jornada por ID</button></li>
+                    <li><button class="dropdown-item" type="button" [routerLink]="'/jornada-laboral/ingreso'">Crear jornada</button></li>
+                    <li><button class="dropdown-item" type="button" [routerLink]="'/jornada-laboral/actualizar'">Actualizar jornada</button></li>
+                </ul>
+            </div>
+        </li>
+    </ul>
+</nav>

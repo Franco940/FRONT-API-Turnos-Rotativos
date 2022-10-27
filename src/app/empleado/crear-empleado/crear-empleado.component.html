@@ -1,0 +1,86 @@
+<div class="container pt-2">
+    <div class="row justify-content-sm-center pt-5">
+        <div class="col-sm-6 shadow round pb-3 colorFormulario rounded-5">
+            <h2 class="d-flex justify-content-sm-center text-white">Crear empleado</h2>
+
+            <form [formGroup]="formularioCrearEmpleado" (ngSubmit)="onSubmit()">
+                <div class="form-group">
+                    <label class="col-form-label text-white">Nombre</label>
+                    <input type="text" formControlName="nombre" class="form-control" placeholder="Ejemplo: Franco">
+                    <!-- Mensaje de error - campo obligatorio -->
+                    <div *ngIf="formularioCrearEmpleado.get('nombre')?.touched && formularioCrearEmpleado.get('nombre')?.errors?.['required']"
+                        class="alert alert-danger">
+                        Este campo es obligatorio
+                    </div>
+                    <!-- Corroboro que sean solo letras lo que se ingresa -->
+                    <div *ngIf="formularioCrearEmpleado.get('nombre')?.touched && formularioCrearEmpleado.get('nombre')?.errors?.['pattern']"
+                        class="alert alert-danger">
+                        No se aceptan números ni espacios
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label  text-white">Apellido</label>
+                    <input type="text" formControlName="apellido" class="form-control" placeholder="Ejemplo: Roman">
+                    <!-- Mensaje de error - campo obligatorio -->
+                    <div *ngIf="formularioCrearEmpleado.get('apellido')?.touched && formularioCrearEmpleado.get('apellido')?.errors?.['required']"
+                        class="alert alert-danger">
+                        Este campo es obligatorio
+                    </div>
+                    <!-- Corroboro que sean solo letras lo que se ingresa -->
+                    <div *ngIf="formularioCrearEmpleado.get('apellido')?.touched && formularioCrearEmpleado.get('apellido')?.errors?.['pattern']"
+                        class="alert alert-danger">
+                        No se aceptan números ni espacios
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label  text-white">Número de documento</label>
+                    <input type="number" formControlName="nroDoc" class="form-control" placeholder="Ejemplo: 123456789">
+                    <!-- Mensaje de error - campo obligatorio -->
+                    <div *ngIf="formularioCrearEmpleado.get('nroDoc')?.touched && formularioCrearEmpleado.get('nroDoc')?.errors?.['required']"
+                        class="alert alert-danger">
+                        Este campo es obligatorio
+                    </div>
+                    <!-- Compruebo los digitos del número de DNI-->
+                    <div *ngIf="formularioCrearEmpleado.get('nroDoc')?.touched && formularioCrearEmpleado.get('nroDoc')?.errors?.['min']"
+                        class="alert alert-danger">
+                        El DNI debe de tener más de 6 dígitos
+                    </div>
+                    <div *ngIf="formularioCrearEmpleado.get('nroDoc')?.touched && formularioCrearEmpleado.get('nroDoc')?.errors?.['max']"
+                        class="alert alert-danger">
+                        El DNI debe de tener menos de 10 dígitos
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label  text-white">Correo electronico</label>
+                    <input type="email" formControlName="email" class="form-control" placeholder="Ejemplo: correo@ejemplo.com">
+                    <!-- Mensaje de error - campo obligatorio -->
+                    <div *ngIf="formularioCrearEmpleado.get('email')?.touched && formularioCrearEmpleado.get('email')?.errors?.['required']"
+                        class="alert alert-danger">
+                        Este campo es obligatorio
+                    </div>
+                    <!-- Compruebo el formato del correo-->
+                    <div *ngIf="formularioCrearEmpleado.get('email')?.touched && formularioCrearEmpleado.get('email')?.errors?.['email']"
+                        class="alert alert-danger">
+                        Formato de correo incorrecto
+                    </div>
+                </div>
+                <br>
+                <div class="d-flex justify-content-between">
+                    <!-- Si el botón es de tipo "reset", borra el contenido del formulario-->
+                    <button type="reset" class="btn btn-danger" (click)="limpiarMensajeDeError()">Limpiar campos</button>
+                    
+                    <!-- El boton de guardar esta deshabilitado si el formulatio está incompleto o con errores -->
+                    <button type="submit" [disabled]="formularioCrearEmpleado.invalid" class="btn btn-success">Crear empleado</button>
+                </div>
+            </form>
+            <br>
+            <!-- Mensajes de exito o error al momento de guardar empleado -->
+            <div class="alert alert-success" *ngIf="guardadoExitoso">
+                {{mensaje}}
+            </div>
+            <div class="alert alert-danger" *ngIf="guardadoFallado">
+                {{mensaje}}
+            </div>
+        </div>
+    </div>
+</div>

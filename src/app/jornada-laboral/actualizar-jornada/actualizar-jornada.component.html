@@ -1,0 +1,65 @@
+<div class="container pt-2">
+    <div class="row justify-content-sm-center pt-5">
+        <div class="col-sm-6 shadow round pb-3 colorFormulario rounded-5">
+            <h2 class="d-flex justify-content-sm-center text-white">Actualizar jornada laboral</h2>
+
+            <form [formGroup]="formularioActualizarJornada" (ngSubmit)="onSubmit()">
+                <div class="form-group">
+                    <label class="col-form-label text-white">Número de documento</label>
+                    <input type="number" formControlName="nroDoc" class="form-control" placeholder="Ejemplo: 123456789">
+                    <!-- Mensaje de error - campo obligatorio -->
+                    <div *ngIf="formularioActualizarJornada.get('nroDoc')?.touched && formularioActualizarJornada.get('nroDoc')?.errors?.['required']"
+                        class="alert alert-danger">
+                        Este campo es obligatorio
+                    </div>
+                    <!-- Compruebo los digitos del número de DNI-->
+                    <div *ngIf="formularioActualizarJornada.get('nroDoc')?.touched && formularioActualizarJornada.get('nroDoc')?.errors?.['min']"
+                        class="alert alert-danger">
+                        El DNI debe de tener más de 6 dígitos
+                    </div>
+                    <div *ngIf="formularioActualizarJornada.get('nroDoc')?.touched && formularioActualizarJornada.get('nroDoc')?.errors?.['max']"
+                        class="alert alert-danger">
+                        El DNI debe de tener menos de 10 dígitos
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label text-white">Fecha de la jornada</label>
+                    <input type="date" formControlName="fecha" class="form-control">
+                    <!-- Mensaje de error - campo obligatorio -->
+                    <div *ngIf="formularioActualizarJornada.get('fecha')?.touched && formularioActualizarJornada.get('fecha')?.errors?.['required']"
+                        class="alert alert-danger">
+                        Este campo es obligatorio
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label text-white">Nuevas horas de trabajo</label>
+                    <input type="number" formControlName="nuevasHoras" class="form-control" placeholder="Ejemplo: 6">
+                    <!-- Mensaje de error - campo obligatorio -->
+                    <div *ngIf="formularioActualizarJornada.get('nuevasHoras')?.touched && formularioActualizarJornada.get('nuevasHoras')?.errors?.['required']"
+                        class="alert alert-danger">
+                        Este campo es obligatorio
+                    </div>
+                    <div *ngIf="formularioActualizarJornada.get('nuevasHoras')?.touched && formularioActualizarJornada.get('nuevasHoras')?.errors?.['min']"
+                        class="alert alert-danger">
+                        Las nuevas horas de trabajo tienen que ser mayor a 1 horas
+                    </div>
+                    <div *ngIf="formularioActualizarJornada.get('nuevasHoras')?.touched && formularioActualizarJornada.get('nuevasHoras')?.errors?.['max']"
+                        class="alert alert-danger">
+                        Las nuevas horas de trabajo tienen que ser menor a 13 horas
+                    </div>
+                </div>
+                <br>
+                <div class="d-flex justify-content-between">
+                    <!-- Si el botón es de tipo "reset", borra el contenido del formulario-->
+                    <button type="reset" class="btn btn-danger" (click)="limpiarMensaje()">Limpiar campos</button>
+                    
+                    <!-- El boton de guardar esta deshabilitado si el formulatio está incompleto o con errores -->
+                    <button type="submit" [disabled]="formularioActualizarJornada.invalid" class="btn btn-success">Actualizar jornada</button>
+                </div>
+            </form>
+            <br>
+            <div *ngIf="exito" class="alert alert-success">{{mensaje}}</div>
+            <div *ngIf="error" class="alert alert-danger">{{mensaje}}</div>
+        </div>
+    </div>
+</div>

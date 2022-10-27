@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'Franco-Roman-TP-Angular';
+  title = 'Franco Roman TP-Angular';
 }

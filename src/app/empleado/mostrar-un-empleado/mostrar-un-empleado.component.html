@@ -1,0 +1,50 @@
+<div class="container d-flex flex-column justify-content-center">
+    <div class="container pt-2">
+        <div class="row justify-content-sm-center pt-5">
+            <div class="col-sm-6 shadow round pb-3 colorFormulario rounded-5">
+                <h2 class="d-flex justify-content-sm-center text-white">Buscar empleado por ID</h2>
+    
+                <form [formGroup]="formularioBuscarEmpleado" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <label class="col-form-label text-white">ID del empleado</label>
+                        <input type="number" formControlName="id" class="form-control" placeholder="Ejemplo: 6">
+                        <!-- Mensaje de error - campo obligatorio -->
+                        <div *ngIf="formularioBuscarEmpleado.get('id')?.touched && formularioBuscarEmpleado.get('id')?.errors?.['required']"
+                            class="alert alert-danger">
+                            Este campo es obligatorio
+                        </div>
+                    </div>
+                    <br>
+                    <button type="submit" [disabled]="formularioBuscarEmpleado.invalid" class="btn btn-success">Buscar empleado</button>
+                </form>
+                <br>
+                <div *ngIf="error" class="alert alert-danger">{{mensajeError}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-5" *ngIf="encontrado">
+        <h2>Empleado encontrado</h2>
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellido</th>
+                <th scope="col">Número de documento</th>
+                <th scope="col">Correo electrónico</th>
+                <th scope="col">Está de vacaciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">{{empleado.id}}</th>
+                <td>{{empleado.nombre}}</td>
+                <td>{{empleado.apellido}}</td>
+                <td>{{empleado.numeroDeDocumento}}</td>
+                <td>{{empleado.email}}</td>
+                <td>{{empleado.vacaciones ? 'SÍ' : 'NO'}}</td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+</div>

@@ -1,0 +1,83 @@
+<div class="container pt-2">
+    <div class="row justify-content-sm-center pt-5">
+        <div class="col-sm-6 shadow round pb-3 colorFormulario rounded-5">
+            <h2 class="d-flex justify-content-sm-center text-white">Crear una jornada laboral</h2>
+
+            <form [formGroup]="formularioCrearJornada" (ngSubmit)="onSubmit()">
+                <div class="form-group">
+                    <label class="col-form-label text-white">Número de documento</label>
+                    <input type="number" formControlName="nroDoc" class="form-control" placeholder="Ejemplo: 123456789">
+                    <!-- Mensaje de error - campo obligatorio -->
+                    <div *ngIf="formularioCrearJornada.get('nroDoc')?.touched && formularioCrearJornada.get('nroDoc')?.errors?.['required']"
+                        class="alert alert-danger">
+                        Este campo es obligatorio
+                    </div>
+                    <!-- Compruebo los digitos del número de DNI-->
+                    <div *ngIf="formularioCrearJornada.get('nroDoc')?.touched && formularioCrearJornada.get('nroDoc')?.errors?.['min']"
+                        class="alert alert-danger">
+                        El DNI debe de tener más de 6 dígitos
+                    </div>
+                    <div *ngIf="formularioCrearJornada.get('nroDoc')?.touched && formularioCrearJornada.get('nroDoc')?.errors?.['max']"
+                        class="alert alert-danger">
+                        El DNI debe de tener menos de 10 dígitos
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label text-white">Fecha</label>
+                    <input type="date" formControlName="fecha" class="form-control">
+                    <!-- Mensaje de error - campo obligatorio -->
+                    <div *ngIf="formularioCrearJornada.get('fecha')?.touched && formularioCrearJornada.get('fecha')?.errors?.['required']"
+                        class="alert alert-danger">
+                        Este campo es obligatorio
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label text-white">Hora de comienzo de la jornada</label>
+                    <input type="time" formControlName="horaComienzo" class="form-control">
+                    <!-- Mensaje de error - campo obligatorio -->
+                    <div *ngIf="formularioCrearJornada.get('horaComienzo')?.touched && formularioCrearJornada.get('horaComienzo')?.errors?.['required']"
+                        class="alert alert-danger">
+                        Este campo es obligatorio
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label text-white">Hora de finalizacióon de la jornada</label>
+                    <input type="time" formControlName="horaFinalizacion" class="form-control">
+                    <!-- Mensaje de error - campo obligatorio -->
+                    <div *ngIf="formularioCrearJornada.get('horaFinalizacion')?.touched && formularioCrearJornada.get('horaFinalizacion')?.errors?.['required']"
+                        class="alert alert-danger">
+                        Este campo es obligatorio
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label text-white">Tipo de jornada laboral</label>
+                    <input type="text" formControlName="tipoDeJornadaLaboral" class="form-control" placeholder="Ejemplo: Turno normal ó Turno extra ó Turno combinado ó Dia libre">
+                    <!-- Mensaje de error - campo obligatorio -->
+                    <div *ngIf="formularioCrearJornada.get('tipoDeJornadaLaboral')?.touched && formularioCrearJornada.get('tipoDeJornadaLaboral')?.errors?.['required']"
+                        class="alert alert-danger">
+                        Este campo es obligatorio
+                    </div>
+                    <div *ngIf="formularioCrearJornada.get('tipoDeJornadaLaboral')?.touched && formularioCrearJornada.get('tipoDeJornadaLaboral')?.errors?.['pattern']"
+                        class="alert alert-danger">
+                        Solo se aceptan letras y espacios
+                    </div>
+                </div>
+                <br>
+                <div class="d-flex justify-content-between">
+                    <!-- Si el botón es de tipo "reset", borra el contenido del formulario-->
+                    <button type="reset" class="btn btn-danger" (click)="limpiarMensajeDeError()">Limpiar campos</button>
+                    
+                    <!-- El boton de guardar esta deshabilitado si el formulatio está incompleto o con errores -->
+                    <button type="submit" [disabled]="formularioCrearJornada.invalid" class="btn btn-success">Crear jornada</button>
+                </div>
+            </form>
+            <br>
+            <div *ngIf="creadoExito" class="alert alert-success">
+                {{mensaje}}
+            </div>
+            <div *ngIf="creadoFallo" class="alert alert-danger">
+                {{mensaje}}
+            </div>
+        </div>
+    </div>
+</div>
